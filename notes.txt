@@ -1,0 +1,23 @@
+
+setup for table -
+ 
+  1> made Logincontroller
+    -login UI
+    -login UI's authentication logic
+
+    -new user's registration screen 
+    -registration UI's logic  
+
+  >made Dashboard Controller
+    -Dashboard UI 
+
+
+  2>AdminLoginController
+    -AdminLogin UI
+    -Adminlogin UI's authentication logic
+    -AdminDashboard UI
+
+
+
+    
+
