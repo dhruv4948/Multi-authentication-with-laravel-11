@@ -20,7 +20,6 @@ class AdminRedirect
         if(Auth::guard('admin')->check()){
             return redirect()->route('account.dashboard');
         }
-
         return $next($request);
     }
 }

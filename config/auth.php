@@ -3,15 +3,15 @@
 return [
 
     /*
-    |--------------------------------------------------------------------------
-    | Authentication Defaults
-    |--------------------------------------------------------------------------
-    |
-    | This option defines the default authentication "guard" and password
-    | reset "broker" for your application. You may change these values
-    | as required, but they're a perfect start for most applications.
-    |
-    */
+        |--------------------------------------------------------------------------
+        | Authentication Defaults
+        |--------------------------------------------------------------------------
+        |
+        | This option defines the default authentication "guard" and password
+        | reset "broker" for your application. You may change these values
+        | as required, but they're a perfect start for most applications.
+        |
+        */
 
     'defaults' => [
         'guard' => env('AUTH_GUARD', 'web'),
@@ -40,9 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+        ],
+        'teamLeader' => [
+            'driver' => 'session',
+            'provider' => 'teamLeaders',
         ],
     ],
 
@@ -63,22 +71,22 @@ return [
     |
     */
 
+
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+
         'admins' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-            
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'teamLeaders' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords

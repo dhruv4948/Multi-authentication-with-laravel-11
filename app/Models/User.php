@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +24,16 @@ class User extends Authenticatable
         'password',
     ];
 
+
+
+    public function profile()
+    {
+        return $this->hasOne(profile::class, 'user_id', 'id');
+    }
+    public function task()
+    {
+        return $this->belongsToMany(Task::class, 'user_task', 'user_id', 'task_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

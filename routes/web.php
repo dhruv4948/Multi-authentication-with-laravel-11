@@ -1,43 +1,100 @@
 <?php
 
 use App\Http\Controllers\admin\AdminDashboardContorller;
-use App\Http\Controllers\admin\AdminLoginContorller;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\DashboardContorller;
-use App\Http\Controllers\LoginContorller;
+use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\teamLedaer\team_leadeDashboardrController;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\Mailer\Transport\Smtp\Auth\LoginAuthenticator;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+// Login Routes for all Users
+    Route::get('admin/dashboard', [AdminDashboardContorller::class, 'index'])->name('admin.dashboard');
+    Route::get('leader/dashboard', [team_leadeDashboardrController::class, 'index'])->name('Leader.dashboard');
+    Route::get('Employee/dashboard', [DashboardContorller::class, 'index'])->name('Employee.dashboard');
+
+    //Admin
+    Route::get('dashboard', [AdminDashboardContorller::class, 'index'])->name('admin.dashboard');
+    Route::get('getTeamLeader', [AdminDashboardContorller::class, 'getTeamLeader'])->name('get.teamLeader');
+    Route::get('emp/{empId}/promote', [AdminDashboardContorller::class, 'promoteEmp'])->name('emp.promote');
+    Route::get('emp/{empId}/demote', [AdminDashboardContorller::class, 'demoteTeamLeader'])->name('teamLeader.demote');
+    Route::post('/users/{userId}/update-team-leader', [AdminDashboardContorller::class, 'updateTeamLeader'])->name('update.teamleader');
+    //admin-Adding task
+    Route::get('admin/add/task', [AdminDashboardContorller::class, 'addTask'])->name('admin.addTask');
+    Route::post('admin/store/task', [AdminDashboardContorller::class, 'storeTask'])->name('admin.storeTask');
+
+    //admin-projects
+    Route::get('add/projects', [AdminDashboardContorller::class, 'addProject'])->name('add.project');
+    Route::post('store/projects', [AdminDashboardContorller::class, 'saveProject'])->name('save.project');
+
+    //admin-add Clients
+    Route::post('store/Client', [AdminDashboardContorller::class, 'saveClient'])->name('save.client');
+
+    //admin-upload excel
+    Route::post('upload/excel', [ExcelController::class, 'uploadFiles'])->name('upload.excel');
+
+    Route::get('/Error/{id}', [ExcelController::class, 'showError'])->name('show.error');
 
 
-Route::group(['prefix' => 'account'], function () {
-    Route::group(['Middleware' => 'guests'], function () {
-        Route::get('login', [LoginContorller::class, 'index'])->name('account.login');
-        Route::get('Register', [LoginContorller::class, 'register'])->name('account.register');
-        Route::post('Process-Register', [LoginContorller::class, 'processRegistration'])->name('account.processRegistration');
-        Route::post('authenticate', [LoginContorller::class, 'authenticate'])->name('account.authenticate');
+    Route::get('load/Excel', [ExcelController::class, 'loadExcel'])->name('load.excel');
+    Route::post('multiple/excel', [ExcelController::class, 'uploadFiles'])->name('upload.multiple.excel');
 
-    });
-    Route::group(['Middleware' => 'auth'], function () {
-        Route::get('Logout', [LoginContorller::class, 'logout'])->name('account.logout');
-        Route::get('Dashboard', [DashboardContorller::class, 'index'])->name('account.dashboard');
 
-    });
+    //admin-download Excell sheeet
+    Route::get('download/excel', [AdminDashboardContorller::class, 'downloadExcel'])->name('download.excel');
+
+
+    //admim-comments
+    Route::get('admin/comments/', [CommentsController::class, 'adminComments'])->name('show.admin.comments');
+    Route::get('admin/task/{taskId}/comments', [CommentsController::class, 'singleTaskComments'])->name('show.admin.task.comments');
+    Route::post('add/{tId}/comments/', [CommentsController::class, 'saveAdminComments'])->name('add.comments.admin');
+
+
+
+
+
+
+    //Team_leader
+    Route::get('Team/Members', [team_leadeDashboardrController::class, 'showTeamMembers'])->name('teamLeader.showMembers');
+    Route::get('dashboard', [team_leadeDashboardrController::class, 'index'])->name('teamLeader.dashboard');
+    Route::post('assign/emp/{taskId}', [team_leadeDashboardrController::class, 'assignToEmp'])->name('assign.emp');
+
+
+    //Team_leader-comment
+    Route::get('leader/comments', [CommentsController::class, 'leaderComments'])->name('show.comments.leader');
+    Route::post('add/leader/{taskId}/comments', [CommentsController::class, 'addLeaderComments'])->name('comments.leader');
+
+
+
+
+
+    // Employee-comment
+    Route::post('add/comments', [CommentsController::class, 'addComments'])->name('add.comments');
+    Route::get('emp/comments', [CommentsController::class, 'empComments'])->name('show.comments.emp');
+
+    //Employee-update status of task 
+    Route::post('update/status/{taskId}', [DashboardContorller::class, 'updateStatus'])->name('update.task.status');
+
+
 });
 
 
-//  Admin Routes
-Route::group(['prefix' => 'admin'], function () {
-    Route::group(['Middleware' => 'admin.guest'], function () {
-        Route::get('login', [AdminLoginContorller::class, 'index'])->name('admin.login');
-        Route::post('authenticate', [AdminLoginContorller::class, 'authenticate'])->name('admin.authenticate');
 
-    });
-    Route::group(['Middleware' => 'admin.auth'], function () {
-        Route::get('dashboard', [AdminDashboardContorller::class, 'index'])->name('admin.dashboard');
-        Route::get('logout', [AdminLoginContorller::class, 'logout'])->name('admin.logout');
-    });
-});
 
+
+
+
+require __DIR__ . '/auth.php';
