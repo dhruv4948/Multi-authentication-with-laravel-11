@@ -25,10 +25,6 @@ class Task extends Model
         return $this->hasMany(User::class, 'id', 'leader_id');
     }
 
-
-
-
-
     public function assignedTask(){
         return $this->hasMany(task_emp::class,);
     }

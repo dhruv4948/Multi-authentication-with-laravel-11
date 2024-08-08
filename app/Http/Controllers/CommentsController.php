@@ -27,8 +27,6 @@ class CommentsController extends Controller
     {
         $authId = Auth()->id();
         $showTask = task_emp::where('emp_id', $authId)->get();
-
-
         $validatedData = $request->validate(
             ['comments' => 'required']
         );
@@ -43,31 +41,37 @@ class CommentsController extends Controller
 
 
 
-    //Team_Leader
-    public function leaderComments()
+    // Team_Leader
+    // public function leaderComments()
+    // {
+    //     $comment = comments::orderBy('id', 'desc')->get();
+    //     return view('LeaderComments', compact('comment', ));
+    // }
+
+    public function singleTaskCommentleader($taskId)
     {
-        $comment = comments::orderBy('id', 'desc')->get();
-        return view('LeaderComments', compact('comment', ));
+        $singleTaskCommentLeader = comments::with('users')->orderBy('id', 'desc')->where('task_id', $taskId)->get();
+        // DD($singleTaskCommentLeader);
+        return view('LeaderComments', compact('singleTaskCommentLeader'));
     }
 
-
-    public function addLeaderComments(Request $request, $taskId)
+    public function addLeaderComments(Request $request,$taskId)
     {
         $authId = Auth()->id();
-        $validatedData = $request->validate(
+        DD($taskId);
+            $validatedData = $request->validate(
             ['comments' => 'required']
         );
-        comments::insert([
-            'task_id' => $taskId,
+        $data = comments::insert([
+            'task_id' => $request->taskId,
             'user_id' => $authId,
             'comments' => $validatedData['comments'],
             'date' => now()
         ]);
+        DD($data);
         return redirect()->back();
 
     }
-
-
 
     // ADMIN    
     public function adminComments()
@@ -79,6 +83,7 @@ class CommentsController extends Controller
     public function singleTaskComments($taskId)
     {
         $singleTaskcomment = comments::with('users')->orderBy('id', 'desc')->where('task_id', $taskId)->get();
+        // DD($singleTaskcomment);
         return view('AdminComments', compact('singleTaskcomment'));
     }
 

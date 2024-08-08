@@ -79,9 +79,7 @@
                                                     {{$st->getEmpTask[0]->description}}
                                                     </p>
 
-
                                                     <p class="fw-bolder">Current Status:</p>
-
 
                                                     <div class="progress mb-3" role="progressbar" aria-label="Success example"
                                                         aria-valuenow="{{$st->getEmpTask[0]->status}}" aria-valuemin="0"
@@ -91,7 +89,6 @@
                                                             {{$st->getEmpTask[0]->status}}%
                                                         </div>
                                                     </div>
-
 
 
                                                     <p class="fw-bolder">Update Status:</p>

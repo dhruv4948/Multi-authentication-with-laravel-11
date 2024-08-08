@@ -21,5 +21,4 @@ class comments extends Model
     {
         return $this->hasMany(Task::class, 'id', 'task_id');
     }
-
 }

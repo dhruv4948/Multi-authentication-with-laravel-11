@@ -78,7 +78,7 @@
                         </div>
                     @elseif (session('error'))
                         <div class="alert alert-danger">
-                            {{ session('error') }}
+                            {{ session('error')}}
                         </div>
                     @endif
                     <form action="{{route('upload.excel') }}" method="post" enctype="multipart/form-data">
@@ -99,7 +99,7 @@
                                 <div class="form-floating mb-3">
                                     <select class="form-select @error('table_type') is-invalid @enderror"
                                         name="table_type" id="table_type">
-                                        <option value="">Select Education</option>
+                                        <option value="">Select Table</option>
                                         <option value="clients">Client</option>
                                         <option value="projects">Project</option>
                                         <option value="task">Task</option>
@@ -149,7 +149,7 @@
                             <th scope="row">{{$c->status}}</th>
                             <th>
                                 @if ($c->status == 'Failed')
-                                    <a href="{{route('show.error',$c->id)}}">View Error</a>
+                                    <a href="{{route('show.error', $c->id)}}">View Error</a>
                                 @endif
                             </th>
                         </tr>

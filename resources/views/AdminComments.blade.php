@@ -68,13 +68,11 @@
                 @endforeach
                 <h3 class="h5 pt-2">Task : {{$c->tasks[0]->title}} </h3>
 
-
-                <button type="button" class="btn btn-primary  m-inline" data-bs-toggle="modal"
-                    data-bs-target="#commentModal">
-                    Comment
-                </button>
+                    <button type="button" class="btn btn-primary  m-inline" data-bs-toggle="modal"
+                        data-bs-target="#commentModal">
+                        Comment
+                    </button>
                 @foreach ($singleTaskcomment as $st)
-
                     <div class="modal fade" id="commentModal" data-bs-backdrop="static" data-bs-keyboard="false"
                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -86,7 +84,6 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-
                                     <form action="{{route('add.comments.admin', $st->id)}}" method="post">
                                         @csrf
                                         <input type="hidden" name="taskId" value="{{$st->task_id}}">

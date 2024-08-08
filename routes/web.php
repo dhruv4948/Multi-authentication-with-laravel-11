@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-// Login Routes for all Users
+    // Login Routes for all Users
     Route::get('admin/dashboard', [AdminDashboardContorller::class, 'index'])->name('admin.dashboard');
     Route::get('leader/dashboard', [team_leadeDashboardrController::class, 'index'])->name('Leader.dashboard');
     Route::get('Employee/dashboard', [DashboardContorller::class, 'index'])->name('Employee.dashboard');
@@ -48,14 +48,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/Error/{id}', [ExcelController::class, 'showError'])->name('show.error');
 
-
     Route::get('load/Excel', [ExcelController::class, 'loadExcel'])->name('load.excel');
     Route::post('multiple/excel', [ExcelController::class, 'uploadFiles'])->name('upload.multiple.excel');
 
 
     //admin-download Excell sheeet
     Route::get('download/excel', [AdminDashboardContorller::class, 'downloadExcel'])->name('download.excel');
-
 
     //admim-comments
     Route::get('admin/comments/', [CommentsController::class, 'adminComments'])->name('show.admin.comments');
@@ -76,6 +74,8 @@ Route::middleware('auth')->group(function () {
     //Team_leader-comment
     Route::get('leader/comments', [CommentsController::class, 'leaderComments'])->name('show.comments.leader');
     Route::post('add/leader/{taskId}/comments', [CommentsController::class, 'addLeaderComments'])->name('comments.leader');
+    Route::get('leader/task/{taskId}/comments', [CommentsController::class, 'singleTaskCommentleader'])->name('show.leader.task.comments');
+
 
 
 

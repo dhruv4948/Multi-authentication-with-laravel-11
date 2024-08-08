@@ -30,8 +30,14 @@ class AdminDashboardContorller extends Controller
     {
         $leader = User::where('role', 'Team_leaders')->get();
         $emp = User::where('role', 'Employees')->get();
-        $team = User::where('role', 'Team_leaders')->get();
-        return view('admin.AllUsers', compact('team', 'emp', 'leader'));
+        
+        foreach($emp as $key => &$value)
+        {
+            $x = User::where('id', $value['team_id'])->get();
+            $value['team_id'] = $x[0]['name'];
+            // dd($x);
+        }
+        return view('admin.AllUsers', compact( 'emp', 'leader'));
     }
 
     public function promoteEmp($empId)
@@ -64,7 +70,7 @@ class AdminDashboardContorller extends Controller
         $validatedData = $request->validate([
             'team_leader_id' => 'required|exists:users,id',
         ]);
-
+        
         $user->team_id = $validatedData['team_leader_id'];
         $user->save();
 

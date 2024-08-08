@@ -30,8 +30,7 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1">
-                        <a class="nav-link " href="{{route('show.comments.leader', )}}" role="button"
-                            aria-expanded="false">Comments</a>
+
                         <a class="nav-link " href="{{route('teamLeader.showMembers')}}" id="" role="button"
                             aria-expanded="false">Your Team</a>
                         <li class="nav-item dropdown">
@@ -87,8 +86,6 @@
                                     <h6 class="d-inline">{{$st->teamLeaderName[0]->name}}</h6>
                                     </p>
 
-
-                        
                                     <p class="fw-bolder">Status:</p>
                                     <div class="progress mb-4" role="progressbar" aria-label="Success example" aria-valuenow="{{$st->status}}"
                                                         aria-valuemin="0" aria-valuemax="100">
@@ -176,55 +173,11 @@
                                         </div>
                                     </div>
 
+                                    <a class="btn btn-outline-primary "
+                                    href="{{route('show.leader.task.comments',$st->id)}}">Comments</a>
 
-                                    <!-- modal to add comments  -->
-                                    <button type="button" class="btn btn-primary " data-bs-toggle="modal"
-                                        data-bs-target="#commentModal{{$st->id}}">
-                                        Comment
-                                    </button>
-                                    <div class="modal fade" id="commentModal{{$st->id}}" data-bs-backdrop="static"
-                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add a
-                                                        Comment</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{{route('comments.leader', $st->id)}}" method="post">
-                                                        @csrf
-                                                        <div class="row gy-3 overflow-hidden">
-                                                            <div class="col-12">
-                                                                <div class="form-floating mb-3">
-                                                                    <input type="text"
-                                                                        class="form-control @error('comments') is-invalid @enderror"
-                                                                        name="comments" id="title" value=""
-                                                                        placeholder="comments">
-                                                                    <label for="comments" class="form-label">Add
-                                                                        Comments</label>
-                                                                    @error('comments')
-                                                                        <p class="invalid-feedback">{{$message}}</p>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
 
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="d-grid">
-                                                                <button class="btn bsb-btn-xl btn-primary py-3"
-                                                                    type="submit">Comments</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                  
                                 </div>
                             </div>
                         </div>

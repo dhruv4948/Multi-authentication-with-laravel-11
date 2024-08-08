@@ -29,7 +29,7 @@ class ExcelController extends Controller
     public function showError($id)
     {
         $err = Excel::findOrFail($id);
-        DD($err);
+        // DD($err);
         return view('admin.showError', compact('err'));
     }
     public function uploadFiles(Request $req)
@@ -81,19 +81,9 @@ class ExcelController extends Controller
         // }
         // DD($dataWithoutHeaders);
 
-
-
-
-
-
-
-
-
-
         // $FilePath = storage_path('app/'.$req->file('excelFile')->store('excelFiles'));
         // $spreadsheet = IOFactory::load($FilePath);
         // $worksheet = $spreadsheet->getActiveSheet();
-
 
         // $csvData = $worksheet->toArray();
         // $csvColumn = $csvData[0];
@@ -115,8 +105,9 @@ class ExcelController extends Controller
 
         Log::info("Excel data created: ", $excelData->toArray());
 
-        ProcessCSVfileJob::dispatch($excelData->id)->delay(now()->addMinutes(2));
-        check::dispatch();
-        return redirect()->back()->with('success', 'Uploaded Successfully');
+        ProcessCSVfileJob::dispatch($excelData->id);
+        // check::dispatch();
+        return redirect()->back()->with('success','Uploaded succesfully');
     }
 }
+

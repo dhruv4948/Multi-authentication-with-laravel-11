@@ -84,7 +84,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($team as $te)
+                        @foreach ($leader as $te)
                             <tr>
                                 <td>{{ $te->name }}</td>
                                 <td>{{ $te->email }}</td>
@@ -114,8 +114,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
-
-
+                            <th>Teamleader</th>
                             @if (session('successEmp'))
                                 <div class="alert alert-success">
                                     {{ session('successEmp') }}
@@ -125,7 +124,6 @@
                                     {{ session('errorEmp') }}
                                 </div>
                             @endif
-
             </div>
             </tr>
             </thead>
@@ -134,11 +132,11 @@
                     <tr>
                         <td>{{ $employee->name }}</td>
                         <td>{{ $employee->email }}</td>
+                        <td>{{ $employee->team_id}}</td>                        
                         <td>
-                            <a href="{{route('emp.promote', $employee->id)}}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="{{route('emp.promote', $employee->id)}}" class="btn btn-primary btn-sm">Promote</a>
 
                             <a href="#" class="btn btn-danger btn-sm">Delete</a>
-
 
                             <div class="btn-group">
                                 <button type="button" class="btn btn-success dropdown-toggle btn-sm"
@@ -158,13 +156,7 @@
                                     @endforeach
                                 </ul>
                             </div>
-
-
-
-
                         </td>
-
-
 
                     </tr>
                 @endforeach

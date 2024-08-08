@@ -58,30 +58,77 @@
 
     <div class="container">
         <div class="card border-0 shadow my-5 ">
-            <div class="card-header bg-light">
-                <h3 class="h5 pt-2">Comments</h3>
+            <div class="card-header bg-light  d-flex justify-content-between align-items-center">
+                @foreach($singleTaskCommentLeader as $c)
+                @endforeach
+                <h3 class="h5 pt-2">Task : {{$c->tasks[0]->title}} </h3>
+                <!-- modal to add comments  -->
+                <button type="button" class="btn btn-primary m-inline" data-bs-toggle="modal"
+                    data-bs-target="#commentModal">
+                    Comment
+                </button>
             </div>
+
+            @foreach($singleTaskCommentLeader as $st)
+        
+                <div class="modal fade" id="commentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add a
+                                    Comment</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{route('comments.leader', $st->id)}}" method="post">
+                                    @csrf
+                                    <div class="row gy-3 overflow-hidden">
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="text"
+                                                    class="form-control @error('comments') is-invalid @enderror"
+                                                    name="comments" id="title" value="" placeholder="comments">
+                                                <label for="comments" class="form-label">Add
+                                                    Comments</label>
+                                                @error('comments')
+                                                    <p class="invalid-feedback">{{$message}}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-grid">
+                                            <button class="btn bsb-btn-xl btn-primary py-3" type="submit">Comments</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
 
 
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Roles</th>
-                        <th scope="col">Task </th>
                         <th scope="col">Comments</th>
                         <th scope="col">Date</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach ($comment as $c)
+                    @foreach ($singleTaskCommentLeader as $c)
                         <tr>
-                            <th scope="row">{{$c->id}}</th>
+                            <!-- <th scope="row">{{$c->id}}</th> -->
                             <td>{{$c->users[0]->name}}</td>
                             <td>{{$c->users[0]->role}}</td>
-                            <td>{{$c->tasks[0]->title}}</td>
                             <td>{{$c->comments}}</td>
                             <td>{{$c->date}}</td>
                         </tr>
@@ -91,7 +138,6 @@
 
             <div class="container my-4 row-cols-1-lg-1">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
-
                 </div>
             </div>
         </div>

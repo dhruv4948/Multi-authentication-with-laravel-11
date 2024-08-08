@@ -150,7 +150,7 @@
                                                     </div>
 
                                                     <a class="btn btn-outline-primary "
-                                                        href="{{route('show.admin.task.comments', $st->id)}}">Comments</a>
+                                                        href="{{route('show.admin.task.comments',$st->id)}}">Comments</a>
                                                 </div>
                                             </div>
                                         </div>

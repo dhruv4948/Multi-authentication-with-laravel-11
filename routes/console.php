@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 // })->purpose('Display an inspiring quote')->hourly();
 
 
-// Schedule::command('demo:cron')->everyMinute();
+// Schedule::command('Excel:upload')->everyFifteenMinutes();
 
 // $excelData = new Excel;
 // Schedule::job(new ProcessCSVfileJob($excelData))->everyMinute();

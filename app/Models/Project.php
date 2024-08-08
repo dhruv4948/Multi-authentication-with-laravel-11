@@ -9,15 +9,9 @@ class Project extends Model
 {
     use HasFactory;
     public $timestamps = false;
-
-
-
-
     public function client()
     {
         return $this->hasMany(Client::class, 'id', 'client_id');
     }
-
-
 
 }
