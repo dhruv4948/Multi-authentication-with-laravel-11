@@ -35,6 +35,7 @@ class ExcelController extends Controller
     public function uploadFiles(Request $req)
     {
         // if ($req->has('excelFile')) {
+
         //     $dt = array_map('str_getcsv', file($req->excelFile));
         //     $header = $dt[0];
         //     unset($dt[0]);

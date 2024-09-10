@@ -11,12 +11,13 @@ use Illuminate\Http\Request;
 class CommentsController extends Controller
 {
 
-    public function empComments($taskId)
+    public function empComments()
     {
         // //for emp ,  whereHas function will sort out the employees,teamLeaders comments !
+
         $com = comments::whereHas('emptoteam', function ($query) {
             $query->whereIn('role', ['Employees', 'Team_leaders']);
-        })->orderBy('id', 'desc')->where('task_id',$taskId)->get();
+        })->orderBy('id', 'desc')->get();
 
         return view('employeeComments', compact('com'));
     }
@@ -24,6 +25,7 @@ class CommentsController extends Controller
     public function addComments(Request $request)
     {
         $authId = Auth()->id();
+        $showTask = task_emp::where('emp_id', $authId)->get();
         $validatedData = $request->validate(
             ['comments' => 'required']
         );
@@ -37,6 +39,7 @@ class CommentsController extends Controller
     }
 
 
+
     // Team_Leader
     // public function leaderComments()
     // {
@@ -47,17 +50,19 @@ class CommentsController extends Controller
     public function singleTaskCommentleader($taskId)
     {
         $singleTaskCommentLeader = comments::with('users')->orderBy('id', 'desc')->where('task_id', $taskId)->get();
+
         // DD($singleTaskCommentLeader);    
         return view('LeaderComments', compact('singleTaskCommentLeader'));
     }
-    public function addLeaderComments(Request $request)
+
+    public function addLeaderComments(Request $request, $taskId)
     {
         $authId = Auth()->id();
-            $validatedData = $request->validate(
+        DD($taskId);
+        $validatedData = $request->validate(
             ['comments' => 'required']
         );
-        // DD($request->taskId);
-         comments::insert([
+        $data = comments::insert([
             'task_id' => $request->taskId,
             'user_id' => $authId,
             'comments' => $validatedData['comments'],
@@ -65,6 +70,7 @@ class CommentsController extends Controller
         ]);
         return redirect()->back();
     }
+
     // ADMIN    
     public function adminComments()
     {
@@ -79,7 +85,9 @@ class CommentsController extends Controller
         return view('AdminComments', compact('singleTaskcomment'));
     }
 
-    public function saveAdminComments(Request $request,)
+
+
+    public function saveAdminComments(Request $request)
     {
         $authId = Auth()->id();
 

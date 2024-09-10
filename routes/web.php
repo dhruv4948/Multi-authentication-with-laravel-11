@@ -82,6 +82,15 @@ Route::middleware('auth')->group(function () {
     Route::get('emp/{taskId}/comments', [CommentsController::class, 'empComments'])->name('show.comments.emp');
 
     
+
+
+
+
+
+    // Employee-comment
+    Route::post('add/comments', [CommentsController::class, 'addComments'])->name('add.comments');
+    Route::get('emp/comments', [CommentsController::class, 'empComments'])->name('show.comments.emp');
+
     //Employee-update status of task 
     Route::post('update/status/{taskId}', [DashboardContorller::class, 'updateStatus'])->name('update.task.status');
 
