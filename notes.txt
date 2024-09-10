@@ -1,0 +1,14 @@
+login form 
+                                <!-- <form action="{{route('account.authenticate')}}" method="post"> -->
+                                            <a href="{{route('account.register')}}" class="link-secondary text-decoration-none">Create new account</a>
+  
+
+admin :: all user ma  user ne delete karvana
+
+
+
+flow is like i have form  (file and select options( table names ))
+when upload an file  and will save in  storage directory  and select table  name  it would save   path , selcted table values and  status defualt in a process , 
+now  i have made job  which will get the file from   storage dir.  and it would read that CSV  file .. and will enter in particular table ... now  this jo should run on a particular time which we would set . 
+
+ i have tried through commands , job scheduling  but i dont know why the job file is running immediatley not  executing on particular  time  
