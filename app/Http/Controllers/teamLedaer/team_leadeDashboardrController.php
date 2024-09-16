@@ -51,13 +51,5 @@ class team_leadeDashboardrController extends Controller
 
         return redirect()->route('Leader.dashboard');   
     }
-
-
-
-
-
-
-
-    
 }
 

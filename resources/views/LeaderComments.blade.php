@@ -70,9 +70,6 @@
             </div>
 
             @foreach($singleTaskCommentLeader as $st)       
-            {{-- {{DD($st->task_id)}}  --}}
-
-   
                 <div class="modal fade" id="commentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -85,9 +82,7 @@
                             <div class="modal-body">
                                 <form action="{{route('comments.leader', $st->id)}}" method="post">
                                     @csrf
-
                                     <input type="hidden" name="taskId" value="{{$st->task_id}}">
-
                                     <div class="row gy-3 overflow-hidden">
                                         <div class="col-12">
                                             <div class="form-floating mb-3">

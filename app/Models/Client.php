@@ -11,5 +11,9 @@ class Client extends Model
     public $timestamps = false;
 
     public $table = 'clients';
+    protected $fillable = [
+        'client_name',
+
+    ];
 
 }

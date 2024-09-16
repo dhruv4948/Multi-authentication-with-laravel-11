@@ -23,7 +23,7 @@ class AdminDashboardContorller extends Controller
     {
         $showTask = Task::with('teamLeaderName')->get();
         $clientList = Client::get();
-        return view('admin.AdminDashboard', compact('showTask', 'clientList'));
+        // return view('admin.AdminDashboard', compact('showTask', 'clientList'));
     }
 
     public function getTeamLeader()
